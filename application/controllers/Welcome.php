@@ -46,23 +46,33 @@ class Welcome extends CI_Controller
 
     public function simpan()
     {
-        
         if ($this->input->post()){
+            $user_id = $this->input->post('user_id');
+            $jenis = $this->input->post('jenis');
+            $article = $this->input->post('article');
 
+            $post = new Post();
+            $post->user_id = $user_id;
+            $post->jenis = $jenis;
+            $post->article = $article;
+            $post->save();
         }
+    
 
-        redirect('Welcome/index');
+        redirect('Welcome/tampil');
+    
     }
 
     public function hapus($id)
     {
-        
-        redirect('Welcome/tampil');
+        $post = \Orm\post::find($id);
+        $post->delete();
+        redirect('Welcome/tampil/hapus');
     }
 
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post =  Post::find($id);
         $users = User::all();
 
         $jenis = 0;
@@ -88,7 +98,9 @@ class Welcome extends CI_Controller
 
     public function tampil()
     {
-        $post_list = Post::all();
+        $post_list = Post::select('post.*', 'user.username', 'user.email')
+        ->join('user', 'post.user_id', '=', 'user.id')
+        ->get();
 
         $this->_createView('tampil', ['post_list' => $post_list]);
     }

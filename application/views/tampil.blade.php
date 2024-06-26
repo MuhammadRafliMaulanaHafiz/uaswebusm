@@ -39,7 +39,7 @@
         <table class="table">
           <thead class="thead-dark">
             <tr>
-              <td scope="col">#</td>
+              <td scope="col">id</td>
               <td scope="col">Username</td>
               <td scope="col">Email</td>
               <td scope="col">Artikel</td>
@@ -50,18 +50,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td scope="row">-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>
-                <a href="{{ site_url('Welcome/hapus/') }}" class="btn btn-danger">Delete</a>
+          @foreach ($post_list as $a=>$post)
+        <tr>
+        <td>{{$a+1}}</td>
+          <td>{{ $post->username }}</td>
+          <td>{{ $post->email }}</td>
+          <td>{{ $post->article }}</td>
+          <td>{{ $post->jenis }}</td>
+          <td>{{ $post->created_at }}</td>
+          <td>{{ $post->updated_at }}</td>
+          <td>
+                <a href='{{ site_url("Welcome/hapus/".$post->id) }}' class="btn btn-danger">Delete</a>  <a href='{{ site_url("Welcome/edit/".$post->id) }}' class="btn btn-primary">Edit</a>
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
         <a href="{{ site_url('Welcome/index') }}" class="btn btn-success">Tambah</a>
