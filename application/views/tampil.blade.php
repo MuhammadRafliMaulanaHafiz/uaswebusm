@@ -39,7 +39,7 @@
         <table class="table">
           <thead class="thead-dark">
             <tr>
-              <td scope="col">id</td>
+              <td scope="col">no</td>
               <td scope="col">Username</td>
               <td scope="col">Email</td>
               <td scope="col">Artikel</td>
